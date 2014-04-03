@@ -42,7 +42,8 @@ Combo options available and their defaults:
 (function() {
   var Combo, _change_keycodes_by_browser, _compare_arrays, _compare_arrays_sorted, _convert_key_to_readable, _convert_to_shifted_key, _decide_meta_key, _factory_defaults, _filter_array, _is_array_in_array, _is_array_in_array_sorted, _key_is_valid, _keycode_alternate_names, _keycode_dictionary, _keycode_shifted_keys, _log_error, _metakey, _modifier_event_mapping, _modifier_keys, _validate_combo,
     __hasProp = {}.hasOwnProperty,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+    keypress;
 
   _factory_defaults = {
     is_unordered: false,
@@ -57,7 +58,7 @@ Combo options available and their defaults:
 
   _metakey = "ctrl";
 
-  window.keypress = {};
+  keypress = {};
 
   keypress.debug = false;
 
@@ -1059,5 +1060,13 @@ Combo options available and their defaults:
   _decide_meta_key();
 
   _change_keycodes_by_browser();
-
+  
+  if(typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define([], function(){
+      return keypress;
+    });
+  } else {
+    window.keypress = keypress;
+  }
 }).call(this);
